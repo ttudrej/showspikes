@@ -41,7 +41,7 @@ frame3 = pd.DataFrame(df,columns=['Roll'])
 
 for i in frame3.T:                #pgs. 47, 48 in 2018 Wes McKinny book
     if i >= 2.2:
-        print('Found i')
+        print('Found i')        #trying to search frame3.T for the vale of the max value of the ROLL
         print (i)
         break
     else:
