@@ -42,7 +42,6 @@ frame3 = pd.DataFrame(df,columns=['Roll'])
 for i in frame3.T:                #pgs. 47, 48 in 2018 Wes McKinny book
     if i >= 2.2:
         print('Found i')
-        print(['Roll'])
         print (i)
         break
     else:
