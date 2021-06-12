@@ -36,12 +36,12 @@ frame3.loc[7658]
 #frame2.loc[1620577]
 #frame2.T
 #print(frame2) 
-frame3 = (df['Roll'].astype(float))
+#frame3 = (df['Roll'].astype(float))
 
 
 
 for x in frame3.T:                #pgs. 47, 48 in 2018 Wes McKinny book
-    if (x > 0) and (x < 3):
+    if (x >= 0) and (x <= 3):
         print('Found')
         print(x)
         print(frame3.loc[x])
