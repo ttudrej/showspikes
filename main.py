@@ -1,108 +1,57 @@
-# -*- coding: utf-8 -*-
-# 
-# Panda intro video:
-# https://www.youtube.com/watch?v=e60ItwlZTKM
-#
+#12 June 21: I need to make this code work. I'll check out the other code later. In the mean time I keep getting this erro message as follows
+#TypeError: '>' not supported between instances of 'str' and 'float'
+#I tried to rectify the problem with no success.
+#The problem is in the for loop. Let me know when you get a chance.
 
-#################################################################
-# import numpy as np
+
+
+import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
 import csv
 
-#################################################################
 def header(msg):
     print('-' * 50)
     print('[ ' + msg + ' ]')
 
 
-#################################################################
-def main():
+# 2. read text file into a dataframe
+header("2. read text file into a df")
+fn = "DATALOG2.csv"
+col_names=['Date Time', 'Roll', 'Pitch', 'Direction', 'Temperature'] 
+df = pd.read_csv('DATALOG2.csv', names=col_names)
+#df = pd.read_csv(fn)
+print(df)
 
 
-    #################################################################
-    # 2. read text file into a dataframe
-    header("2. read text file into a df")
+# 3. Print first 5 or last 3 rows
+#header("3. df.head()")
+#print(df.head())
+#header("3. df.tail(3)")
+#print(df.tail(3))
 
-    # Have one place to set the file name to a var. Use the variable
-    # everywhere else in the program.
-    fn = "data.csv"
+frame2 = pd.DataFrame(df,columns=['Date Time','Roll','Pitch'])
+print (frame2)
 
-    # example row:
-    # 2021/3/29,"11:54:7""",,0.98,,0.15,,127.01,,23.03
-    # has 9 "," therfor 10 columns/fields
-    # date, time, col3, col4, col5, col6, col7, col8, col9, col10
-    #
-    # ! time has an extra set of "", don't know what that's about,
-    # col3 has no values
-    # col5 has no values
-    # col7 has no values
-    # col9 has no values
-    #
-    # So it makes sense to only operate on 1,2,4,6,8,10
+frame3 = pd.DataFrame(df,columns=['Roll'])
 
-    col_names = ['Date', 'Time', 'col3', 'col4', 'col5', 'col6', 'col7', 'col8', 'col9', 'col10']
+frame3.loc[7658]
 
-    df = pd.read_csv(fn, names=col_names)
+#frame2.loc[1620577]
+#frame2.T
+#print(frame2) 
+frame3 = (df['Roll'].astype(float))
 
-    # Print the entire frame, so all of the data in the file, rows x columns.
-    # print(df)
-
-    #################################################################
-    # 3. Print first 5 or last 3 rows
-    # header("3. df.head()")
-    # print(df.head())
-
-    # header("3. df.tail(3)")
-    # print(df.tail(3))
-
-    #################################################################
-
-    #################################################################
-    # 5, statistical summary of each column
-    # header("5. df.describe()")
-    # print(df.describe())
-
-    #################################################################
-    #
-
-    #################################################################
-    # 7, Show/slice only the columns of interest
-    # header("7. df[[]], show only specific columns")
-    # print(df[['Date', 'Time', 'col4', 'col6', 'col8', 'col10']])
-
-    #################################################################
-    # 7, Show/slice only the columns of interest, and only a range of rows
-    # header("7. df.loc[[]], show only specific columns")
-    # print(df.loc[0:15, ['Date', 'Time', 'col4', 'col6', 'col8', 'col10']])
-
-    #################################################################
-    # 8, filtering
-    header("8. df[(df['col4'] > 0.50) & (df['col4'] < 0.9)], show only specific columns, filtered with condition(s)")
-    # print rows where col4 is in range of 0.5 - 0.9
-    print(df[(df['col4'] > 0.50) & (df['col4'] < 0.9)])
-
-
-    # df[(df['col1'] >= 1) & (df['col1'] <=1 )]
-    #################################################################
-    # 11. iterate over rows
-    # header("11. df[df.col4 > 0.50], show only specific columns, filtered with condition")
-    # # First 27 rows get removed
-
-    # for index, row in df.iterrows():
-    #     if row['col4'] > 0.8 and row['col4'] < 1.0:
-    #         print(df.loc[index:index, ['Date', 'Time', 'col4', 'col6', 'col8', 'col10']])
-
-
-    #################################################################
-
-
-
-    #################################################################
-    #################################################################
-    #################################################################
-
-
+for x in 'Roll':                #pgs. 47, 48 in 2018 Wes McKinny book
+    if (x > 1.00) & (x < 3.00):
+        print('Found')
+        print(x)
+        print(frame3.loc[x])
+        #break
+    else:
+        print ('Not Found')    
+        print(x)
+        print(frame3.loc[x])
 
 #################################################################
 if __name__ == "__main__":
