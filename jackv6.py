@@ -1,12 +1,3 @@
-"""
-Created on Fri Jun  4 06:47:24 2021
-
-@author: Jack
->>>I'm having trouble with the for oop at the bottom. It Run it and see what it gives you. The value of value does not change although it must  scroll though every
->>>value in the data file. Le me know when you get a chance.
-
-"""
-
 import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
@@ -17,45 +8,46 @@ def header(msg):
     print('[ ' + msg + ' ]')
 
 
+# fn = "DATALOG2.csv"
+# fn = "data_1k_lines.csv"
+fn = "data_50Mi.csv"
+
+
 # 2. read text file into a dataframe
 header("2. read text file into a df")
-fn = "DATALOG2.csv"
+
+
 col_names=['DateTime', 'Roll', 'Pitch', 'Direction', 'Temperature'] 
-df = pd.read_csv('DATALOG2.csv', names=col_names)
-#df = pd.read_csv(fn)
-print(df)
 
 
-# 3. Print first 5 or last 3 rows
-#header("3. df.head()")
-#print(df.head())
-#header("3. df.tail(3)")
-#print(df.tail(3))
+df = pd.read_csv(fn, names=col_names)
+#df = pd.read_csv(fn) # read file without assigning col names in the frame
 
-frame2 = pd.DataFrame(df,columns=['DateTime','Roll','Pitch'])
-print (frame2)
 
 frame3 = pd.DataFrame(df,columns=['Roll'])
 
-#frame3.loc[7658]
 
-#frame2.loc[1620577]
-#frame2.T
-#print(frame2) 
-frame3 = (df['Roll'].astype(float))
+# frame3 = (df['Roll'].astype(float))
+# What's the reason you are using the "astype" funcition?
 
-for value in frame3: 
-    i  = 0
-    while i >= 0:
-        print(i)
-        i += 1       
-        if (2.5 > value > 2.0):
-            print('Found')
-            print(value)
-            #print(i)
-            print(frame3.loc[i])
-                #break
-        else:
-            print ('Not Found')    
-            print(value)
-           #print(i)
+
+#################################################################
+# Panda intro video:
+# https://www.youtube.com/watch?v=e60ItwlZTKM
+
+# WATCH THIS ^^^^^^ and do the examples one by one!
+
+
+# Here is what you want explained in example 11:
+
+# 11. iterate over rows
+# header("11. df[df.col4 > 0.50], show only specific columns, filtered with condition")
+
+# for index, row in df.iterrows():
+#     if row['col4'] > 0.8 and row['col4'] < 1.0:
+#         print(df.loc[index:index, ['Date', 'Time', 'col4', 'col6', 'col8', 'col10']])
+#################################################################
+
+for index, row in frame3.iterrows():
+    if row['Roll'] > 2.0 and row['Roll'] < 2.5:
+        print("Found value in range", df.loc[index:index, ['Roll']])
