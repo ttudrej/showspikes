@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Nov 12 05:52:59 2021
+
+@author: Jack
+"""
+
+import pandas as pd
+import numpy as np
+from openpyxl import load_workbook
+from openpyxl.utils.dataframe import dataframe_to_rows
+
+wb = load_workbook('D:/DataFileForSeismometer/Seismograph_Data.xlsx')
+ws = wb.active
+
+col_names=['Date Time', 'Roll', 'Pitch', 'Direction Angle', 'Temperature']
+df = pd.read_csv('D:/DataFileForSeismometer/DATALOG2.csv', names=col_names, low_memory=False, encoding='utf-8', dtype={"Data Time": str, "Roll": float,
+"Pitch": float, "Direction Angle": float, "Temperature": float})
+
+df_2=df['Roll']
+df_2['Roll'] = df_2.Temp.astype(float)
+values = df_2.abs(9
