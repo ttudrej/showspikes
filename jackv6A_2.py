@@ -5,13 +5,6 @@ Created on Tue Nov 16 18:40:36 2021
 @author: Jack
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Nov 12 05:52:59 2021
-
-@author: Jack I.
-"""
-
 import pandas as pd
 import numpy as np
 from openpyxl import load_workbook
@@ -22,48 +15,25 @@ from openpyxl.utils.dataframe import dataframe_to_rows
 wb = load_workbook('./Seismograph_Data.xlsx')
 ws = wb.active
 
-col_names=['Date Time', 'Roll', 'Pitch', 'Direction Angle', 'Temperature']
-# df = pd.read_csv('D:/DataFileForSeismometer/DATALOG2.csv', names=col_names, low_memory=False, encoding='utf-8', dtype={"Data Time": str, "Roll": str, "Pitch": str, "Direction Angle": str, "Temperature": str})
-df = pd.read_csv('./DATALOG1.csv', names=col_names, low_memory=False, encoding='utf-8', dtype={"Data Time": str, "Roll": str, "Pitch": str, "Direction Angle": str, "Temperature": str})
+# https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html
+# dtypeType name or dict of column -> type, optional
+# Data type for data or columns. E.g. {‘a’: np.float64, ‘b’: np.int32, ‘c’: ‘Int64’} Use str or object
+# together with suitable na_values settings to preserve and not interpret dtype. If converters are specified,
+# they will be applied INSTEAD of dtype conversion.
+col_names = ['Date Time', 'Roll', 'Pitch', 'Direction Angle', 'Temperature']
+df = pd.read_csv('./DATALOG1.csv', names=col_names, low_memory=False, encoding='utf-8')
 
-# print(df)
-# exit()
+print(df)
 
-#col_names=['Date Time', 'Roll', 'Pitch', 'Direction Angle', 'Temperature']
-#df = pd.read_csv ('D:/DataFileForSeismometer/DATALOG2.csv', low_memory=False, names=col_names)
-#df_1 = pd.DataFrame(df,columns=['Date Time', 'Roll', 'Pitch'])
+# https://stackoverflow.com/questions/34962104/how-can-i-use-the-apply-function-for-a-single-column
+df['Roll'] = df['Roll'].abs()
+df['Pitch'] = df['Pitch'].abs()
 
-# df_1= df["Roll"]
+print(df)
 
-# print(df_1)
-# exit()
-
-#print(df_2.abs())
-#df_1 = df_1.replace(np.nan, 'N/A', regex=True)
-
-#df1['Count'] = 1
-#df2 = df1.groupby(['DISTRICT', 'YEAR']).count()['Count'].unstack(level=0)
-
-#print(df2)
-
-#df2.drop(columns='N/A', inplace=True)
-
-
-# rows = dataframe_to_rows(df_1)
-
-# for r_idx, row in enumerate(rows,2):
-#    for c_idx, value in enumerate (row,1):
-#       ws.cell(row=r_idx, column=c_idx, value=value)
-
-# df1['Roll'].abs()
-# print(df1['Roll'].abs())
-#wb.save('Seismograph_Data2.xlsx')
-
-
-
+# To convert a dataframe into a worksheet
+# https://openpyxl.readthedocs.io/en/stable/pandas.html
 for row in dataframe_to_rows(df, index=False, header=True):
     ws.append(row)
-   #  print(row)
-   #  exit()
 
 wb.save('Seismograph_Data.xlsx')
