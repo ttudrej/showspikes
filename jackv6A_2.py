@@ -33,19 +33,27 @@ ws.title = "My seimic data"
 col_names = ['Date Time', 'Roll', 'Pitch', 'Direction Angle', 'Temperature']
 df = pd.read_csv('./DATALOG1.csv', names=col_names, low_memory=False, encoding='utf-8')
 
-print(df)
+# print(df)
 
 # https://stackoverflow.com/questions/34962104/how-can-i-use-the-apply-function-for-a-single-column
 df['Roll'] = df['Roll'].abs()
 df['Pitch'] = df['Pitch'].abs()
 
+# Tell panda to print all rows, and not just the first and last few.
+pd.set_option('display.max_rows', df.shape[0] + 1)
+
+# https://stackoverflow.com/questions/25055712/pandas-every-nth-row
 # Print elements 1 to 5 only.
-print(df.iloc[1:5])
+# print(df.iloc[1:5])
+# Print every 5th element
+print(df.iloc[::5, :])
+# Print every 5th element, starint with element 3
+# print(df.iloc[2::5, :])
 
 # To convert a dataframe into a worksheet
 # https://openpyxl.readthedocs.io/en/stable/pandas.html
-for row in dataframe_to_rows(df, index=False, header=True):
-    ws.append(row)
+# for row in dataframe_to_rows(df, index=False, header=True):
+#     ws.append(row)
 
 # https://openpyxl.readthedocs.io/en/stable/tutorial.html#saving-to-a-file
-wb.save('Seismograph_Data.xlsx')
+# wb.save('Seismograph_Data.xlsx')
